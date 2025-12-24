@@ -11,7 +11,10 @@ namespace SpinTheGig.Models
 
         // Naviagtion property: One Artist can "have" / "be in" many Epsiodes
         [JsonIgnore] // Prevent circular reference
-        public ICollection<Episode> Episodes { get; set; } = new List<Episode>();
+        public ICollection<Episode> MainEpisodes { get; set; } = new List<Episode>();
+
+        [JsonIgnore] // Prevent circular reference
+        public ICollection<Episode> SupportingEpisodes { get; set; } = new List<Episode>();
 
     }
 }

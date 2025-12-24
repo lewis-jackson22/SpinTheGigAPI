@@ -23,8 +23,12 @@ namespace SpinTheGig.Controllers
         {
             // Get all episodes with the related Artist and Venue
             var episodes = await _appDbContext.Episodes
-                .Include(e => e.Artist)
+                .Include(e => e.MainArtist)
+                .Include(e => e.SupportingArtist)
                 .Include(e => e.Venue)
+                .Include(e => e.PreGigPub)
+                .Include(e => e.PreGigBeverage)
+                .Include(e => e.MidGigBeverage)
                 .ToListAsync();
 
             return Ok(episodes);
