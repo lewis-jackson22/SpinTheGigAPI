@@ -27,8 +27,11 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// Read environment variable to decide if Swagger should be enabled
+var enableSwagger = builder.Configuration.GetValue<bool>("EnableSwagger");
+
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() && enableSwagger)
 {
     app.UseSwagger();
     app.UseSwaggerUI();
