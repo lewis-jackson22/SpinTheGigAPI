@@ -33,5 +33,22 @@ namespace SpinTheGig.Controllers
 
             return Ok(episodes);
         }
+
+
+        [HttpGet("Episodes/{id:int}")]
+        public async Task<ActionResult<Episode?>> GetEpisodeById(int id)
+        {
+            // Get all episodes with the related Artist and Venue
+            var episode = await _appDbContext.Episodes
+                .Include(e => e.MainArtist)
+                .Include(e => e.SupportingArtist)
+                .Include(e => e.Venue)
+                .Include(e => e.PreGigPub)
+                .Include(e => e.PreGigBeverage)
+                .Include(e => e.MidGigBeverage)
+                .FirstOrDefaultAsync(x => x.Number == id);
+
+            return Ok(episode);
+        }
     }
 }
